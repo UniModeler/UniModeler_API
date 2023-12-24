@@ -22,6 +22,10 @@ function buscarAtributos(objeto) {
             attributes = buscarAtributos(objeto[prop]);
         }
 
+        if(tipo === 'array_object') {
+            attributes = buscarAtributos(objeto[prop][0]);
+        }
+
         // adiciona a prop atual no array de atributos
         if(!attributes) {
             arrayAtributos.push({
@@ -44,7 +48,7 @@ function tipoDo(variable) {
     let tipo = typeof(variable);
     
     if(tipo === 'object' && variable.length) {
-        return 'array';
+        return `array_${typeof(variable[0])}`;
     } else {
         return tipo;
     }
