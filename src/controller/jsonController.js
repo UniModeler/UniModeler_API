@@ -7,7 +7,7 @@ endpoints.post('/structure', async (req, resp) => {
     try {
         let json = req.body;
 
-        let strucObject = estruturaObjeto(json);
+        let strucObject = estruturaObjeto(json.jsString);
 
         resp.send(strucObject);
         

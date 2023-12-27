@@ -1,55 +1,105 @@
-export function estruturaObjeto(objeto) {
-    
-    let struct = {
-        entity: "JSON",
-        attributes: []
-    };
+import * as ast from 'acorn';
 
-    struct.attributes = buscarAtributos(objeto);
+export function estruturaObjeto(jsString) {
+    let comments = [];
+    let entities = [];
 
-    return struct;
-}
+    let decode = ast.parse(jsString,
+        {
+            ecmaVersion: "lastest",
+            locations: true,
+            onComment: (isBlock, text, start, end, startLoc, endLoc) =>
+                comments.push({ isBlock, text, start, end, startLoc, endLoc })
+        });
 
-function buscarAtributos(objeto) {
-    let arrayAtributos = [];
+    decode.body.forEach(node => {
+        if (node.type === 'VariableDeclaration') {
+            let entityName = node.declarations[0].id.name;
+            let entityAttributes = infoObjectNode(node.declarations[0].init);
 
-    for(let prop in objeto) {
-        let tipo = tipoDo(objeto[prop]);
-        let attributes;
-
-        // se a prop atual for um objeto, repita o processo
-        if(tipo === 'object') {
-            attributes = buscarAtributos(objeto[prop]);
-        }
-
-        if(tipo === 'array_object') {
-            attributes = buscarAtributos(objeto[prop][0]);
-        }
-
-        // adiciona a prop atual no array de atributos
-        if(!attributes) {
-            arrayAtributos.push({
-                name: prop,
-                type: tipo,
-            })    
-        } else {
-            arrayAtributos.push({
-                name: prop,
-                type: tipo,
-                attributes: attributes
+            entities.push({
+                entity: entityName,
+                attributes: entityAttributes
             })
         }
+    });
+
+    return entities;
+
+    function infoObjectNode(objectExpression) {
+        let attributes = [];
+
+        objectExpression.properties.forEach(property => {
+            let name = property.key.raw ? property.key.raw : property.key.name;
+            name = name.replaceAll("'", '');
+
+            let type = dataType(property.value);
+            let nestedAttributes;
+            let description = thereIsComment(property.loc);
+
+            if (type === 'object') {
+                nestedAttributes = infoObjectNode(property.value);
+            }
+
+            if (type === 'array_object') {
+                nestedAttributes = infoObjectNode(property.value.elements[0])
+            }
+
+            let infoField = {
+                name: name,
+                type: type,
+            };
+
+            if (nestedAttributes) {
+                infoField.attributes = nestedAttributes;
+            };
+
+            if (description) {
+                infoField.description = description;
+            }
+
+            if (name.charAt(0) === '?') {
+                infoField.optional = true;
+                name = name.replace('?', '');
+                infoField.name = name;
+            }
+
+            attributes.push(infoField)
+        });
+
+        return attributes;
     }
 
-    return arrayAtributos;
-}
+    function dataType(propertyValue) {
+        let type;
 
-function tipoDo(variable) {
-    let tipo = typeof(variable);
-    
-    if(tipo === 'object' && variable.length) {
-        return `array_${typeof(variable[0])}`;
-    } else {
-        return tipo;
+        if (propertyValue.type === 'Literal') {
+            type = typeof (propertyValue.value);
+        }
+
+        if (propertyValue.type === 'ObjectExpression') {
+            type = 'object'
+        }
+
+        if (propertyValue.type === 'ArrayExpression') {
+            type = 'array';
+
+            if (propertyValue.elements[0]) {
+                type += '_' + dataType(propertyValue.elements[0]);
+            }
+        }
+
+        return type;
+    }
+
+    function thereIsComment(location) {
+        let comment;
+
+        for (let com of comments) {
+            if (com.startLoc.line === location.start.line || com.startLoc.line === location.end.line)
+                comment = com.text.trim();
+        }
+
+        return comment;
     }
 }
