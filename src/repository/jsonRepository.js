@@ -58,11 +58,7 @@ export function estruturaObjeto(jsString) {
                 infoField.description = description;
             }
 
-            if (name.charAt(0) === '?') {
-                infoField.optional = true;
-                name = name.replace('?', '');
-                infoField.name = name;
-            }
+            verifyName(infoField, property);
 
             attributes.push(infoField)
         });
@@ -75,6 +71,10 @@ export function estruturaObjeto(jsString) {
 
         if (propertyValue.type === 'Literal') {
             type = typeof (propertyValue.value);
+
+            if (type === 'number') {
+                type = Number.isInteger(propertyValue.value) ? 'int' : 'double';
+            }
         }
 
         if (propertyValue.type === 'ObjectExpression') {
@@ -101,5 +101,25 @@ export function estruturaObjeto(jsString) {
         }
 
         return comment;
+    }
+
+    function verifyName(infoField, property) {
+        let firstChar = infoField.name.charAt(0);
+
+        if (firstChar === '?') {
+            infoField.optional = true;
+            infoField.name = infoField.name.replace('?', '');
+        }
+
+        if (firstChar === '!') {
+            infoField.key = 'primary key';
+            infoField.name = infoField.name.replace('!', '');
+        }
+
+        if (firstChar === '#') {
+            infoField.key = 'foreign key';
+            infoField.name = infoField.name.replace('#', '');
+            infoField.references = property.value.value;
+        }
     }
 }
