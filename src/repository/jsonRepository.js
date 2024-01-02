@@ -75,6 +75,17 @@ export function estruturaObjeto(jsString) {
             if (type === 'number') {
                 type = Number.isInteger(propertyValue.value) ? 'int' : 'double';
             }
+
+            if (type === 'string' && new Date(propertyValue.value).toString() !== 'Invalid Date') {
+                
+                if(/[0-2][0-9]:[0-5][0-9]/.test(propertyValue.value)) {
+                    type = 'datetime';
+                } else {
+                    type = 'date';
+                }   
+            } else if (/^[0-2][0-9]:[0-5][0-9]$/.test(propertyValue.value)) {
+                type = 'time';
+            }
         }
 
         if (propertyValue.type === 'ObjectExpression') {
