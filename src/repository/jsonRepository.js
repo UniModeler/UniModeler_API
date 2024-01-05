@@ -132,5 +132,10 @@ export function estruturaObjeto(jsString) {
             infoField.name = infoField.name.replace('#', '');
             infoField.references = property.value.value;
         }
+
+        if (firstChar === '_') {
+            infoField.name = infoField.name.replace('_', '');
+            infoField.type = `'${String(property.value.value)}'`;
+        }
     }
 }
