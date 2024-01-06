@@ -63,7 +63,6 @@ export function estruturaObjeto(jsString) {
 
             if (example) {
                 infoField.example = example;
-                console.log(infoField.example);
             }
 
             verifyName(infoField, property);
