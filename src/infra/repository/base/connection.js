@@ -19,7 +19,7 @@ catch (error) {
  * @return {mongo.Collection<mongo.Document>[]} Returns a array of collection
 */
 export function connect(...collactions) {
-  return collactions.map(col => conn.db('psicoways').collection(col));
+  return collactions.map(col => conn.db('unimodeler').collection(col));
 }
 
 

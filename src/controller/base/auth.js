@@ -1,32 +1,16 @@
 import jwt from 'jsonwebtoken'
-const KEY = '===!!PsicoWays==='
+const KEY = '===!!UniModell==='
 
 
 
 
-export function gerarTokenPaciente(userInfo) {
-  userInfo.role = 'paciente';
+export function gerarTokenUsuario(userInfo) {
+  userInfo.role = 'user';
   return jwt.sign(userInfo, KEY)
 }
 
-export function gerarTokenPsicologo(userInfo) {
-  userInfo.role = 'psicologo';
-  return jwt.sign(userInfo, KEY)
-}
-
-export function gerarTokenClinica(userInfo) {
-  userInfo.role = 'clinica';
-  return jwt.sign(userInfo, KEY)
-}
-
-
-
-export function autenticacaoPsicologo(req, resp, next) {
-  return autenticacao(req, resp, next, 'psicologo');
-}
-
-export function autenticacaoPaciente(req, resp, next) {
-  return autenticacao(req, resp, next, 'paciente');
+export function autenticacaoUsuario(req, resp, next) {
+  return autenticacao(req, resp, next, 'user');
 }
 
 
