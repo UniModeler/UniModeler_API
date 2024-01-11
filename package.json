@@ -4,6 +4,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.3.0",
     "nodemon": "^3.0.2"
   },
   "name": "mongo_modeler_api",
@@ -17,5 +19,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "imports": {
+    "#infra/*.js": "./src/infra/*.js",
+    "#infra/*": "./src/infra/*.js",
+    "#infra/*/": "./src/infra/*/index.js",
+    "#domain/*.js": "./src/domain/*.js",
+    "#domain/*": "./src/domain/*.js",
+    "#domain/*/": "./src/domain/*/index.js",
+    "#util/*.js": "./src/util/*.js",
+    "#util/*": "./src/util/*.js",
+    "#util/*/": "./src/util/*/index.js"
+  }
 }

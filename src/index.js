@@ -1,13 +1,18 @@
-import express from 'express';
-import 'dotenv/config';
-import cors from 'cors';
-import JSONController from './controller/jsonController.js';
+import '#util/globals.js'
+import 'dotenv/config'
+import express from 'express'
+import cors from 'cors'
 
-const server = express();
+import configRotas from './routes.js'
 
-server.use(express.json());
-server.use(cors());
 
-server.use(JSONController);
+const servidor = express();
+servidor.use(cors());
+servidor.use(express.json());
 
-server.listen(process.env.PORT, () => console.log("API ONLINE NA PORTA " + process.env.PORT));
+
+configRotas(servidor);
+
+
+servidor.listen(process.env.PORT, () => console.log('API iniciada com sucesso na porta ' + process.env.PORT));
+

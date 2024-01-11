@@ -149,4 +149,8 @@ export function estruturaObjeto(jsString) {
             infoField.example = undefined;
         }
     }
+    
 }
+
+
+
