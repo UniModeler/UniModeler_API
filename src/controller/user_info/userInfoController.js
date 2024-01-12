@@ -1,12 +1,20 @@
 import {Router} from 'express';
 import doIt from '../base/doIt.js';
-import { listarLinksService, inserirLinkService } from '#domain/user_info/index';
+import { buscarLinksService, inserirLinkService } from '#domain/user_info/index';
+import { buscarPorID } from '#domain/user_info/index.js';
+import { countLinks } from '../../domain/user_info/index.js';
 
 const endpoints = Router();
 
-endpoints.get('/link', (req, resp) => {
+endpoints.get('/link/:code', (req, resp) => {
     doIt(req, resp, async () => {
-        let links = await listarLinksService(req.socket.remoteAddress);
+        let code = req.params.code;
+
+        let links = await buscarLinksService(code);
+
+        if(!links) {
+            throw new global.PsicoWaysError('Não foi possível carregar o link compartilhado.')
+        } 
 
         return links;
     })
@@ -14,6 +22,7 @@ endpoints.get('/link', (req, resp) => {
 
 endpoints.post('/link', (req, resp) => {
     doIt(req, resp, async () => {
+
         let infoLink = {
             jsString: req.body.jsString,
             ipAdress: req.socket.remoteAddress
@@ -21,7 +30,14 @@ endpoints.post('/link', (req, resp) => {
 
         let insertLink = await inserirLinkService(infoLink);
 
-        return insertLink;
+        if(insertLink.acknowledged) {
+            let link = await buscarPorID(insertLink.insertedId);
+            link.remaining = await countLinks(req.socket.remoteAddress);
+
+            return link;
+        } else {
+            throw new global.PsicoWaysError('Algo deu errado ao gerar seu link.');
+        }
     })
 })
 

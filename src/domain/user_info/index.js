@@ -1,8 +1,12 @@
-import { listarLinksService } from "./servicos/listarLinkService.js";
+import { buscarLinksService } from "./servicos/listarLinkService.js";
 import { inserirLinkService } from './servicos/inserirLinksService.js';
+import { countLinks } from "./servicos/listarLinkService.js";
+import { buscarPorID } from "./servicos/listarLinkService.js";
 
 export {
-  listarLinksService,
-  inserirLinkService
+  buscarLinksService,
+  inserirLinkService,
+  countLinks,
+  buscarPorID
 }
 
