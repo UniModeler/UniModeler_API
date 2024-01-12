@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import doIt from '../base/doIt.js';
 
-import * as modeler from '#domain/modeler/';
+import * as modeler from '#domain/modeler/index';
 
 
 const endpoints = Router();

@@ -10,6 +10,7 @@ import modelerController from './controller/modeler/modelerController.js'
 
 // auth
 import * as auth from './controller/base/auth.js'
+import userController from './controller/user_info/userInfoController.js';
 
 
 
@@ -24,4 +25,7 @@ export default function configRotas(servidor) {
 
   // teste
   servidor.use('/teste', testeController);
+
+  // user_info
+  servidor.use('/user', userController);
 }

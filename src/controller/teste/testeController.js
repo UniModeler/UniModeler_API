@@ -1,8 +1,7 @@
 import { Router } from 'express'
 import doIt from '../base/doIt.js';
 
-import * as teste from '#domain/teste/';
-
+import * as teste from '#domain/teste/index';
 
 const endpoints = Router();
 

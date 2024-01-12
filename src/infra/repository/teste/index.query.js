@@ -1,7 +1,10 @@
 import { connect } from "../base/connection.js";
-const [dbTeste] = connect('teste');
+const [db] = connect('sharedLinks');
 
+export async function listar(ipAdress) {
+  let links = db.find({})
 
-export function listar() {
-  return dbTeste.find().toArray();
+  console.log(links);
+
+  return links;
 }

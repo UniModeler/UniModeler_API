@@ -15,11 +15,11 @@ catch (error) {
 
 /**
  * connect to many collections
- * @param {String[]} collactions array of string with the collections name
+ * @param {String[]} collections array of string with the collections name
  * @return {mongo.Collection<mongo.Document>[]} Returns a array of collection
 */
-export function connect(...collactions) {
-  return collactions.map(col => conn.db('unimodeler').collection(col));
+export function connect(...collections) {
+  return collections.map(col => conn.db('unimodeler').collection(col));
 }
 
 
@@ -32,5 +32,3 @@ export function connect(...collactions) {
  * @callback CollectionCallback
  * @param {Collection<Document>} collection 
 */
-
-
