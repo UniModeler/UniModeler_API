@@ -4,26 +4,22 @@ import { listarLinksService, inserirLinkService } from '#domain/user_info/index'
 
 const endpoints = Router();
 
-endpoints.get('/listarLinks', (req, resp) => {
+endpoints.get('/link', (req, resp) => {
     doIt(req, resp, async () => {
-        let ipAdress = req.ip;
-
-        let links = await listarLinksService(ipAdress);
-        console.log(req.ip);
+        let links = await listarLinksService(req.socket.remoteAddress);
 
         return links;
     })
 })
 
-endpoints.post('/inserirLink', (req, resp) => {
+endpoints.post('/link', (req, resp) => {
     doIt(req, resp, async () => {
         let infoLink = {
             jsString: req.body.jsString,
-            ipAdress: req.ip
+            ipAdress: req.socket.remoteAddress
         }
 
         let insertLink = await inserirLinkService(infoLink);
-        console.log(req.ip);
 
         return insertLink;
     })
