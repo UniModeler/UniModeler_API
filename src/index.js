@@ -10,6 +10,8 @@ const servidor = express();
 servidor.use(cors());
 servidor.use(express.json());
 
+servidor.set('trust proxy', true);
+
 configRotas(servidor);
 
 
