@@ -10,6 +10,10 @@ export async function countLinks(ipAdress) {
 
   let remainingLinks = 50 - count.length;
 
+  if (remainingLinks < 0) {
+    throw new global.PsicoWaysError('Maximum of share links reached for this IP adress.')
+  }
+
   return remainingLinks;
 }
 
