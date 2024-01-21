@@ -1,4 +1,4 @@
-import * as repo from '#infra/repository/teste/index'
+import * as repo from '#infra/repository/shareLinks/index'
 
 export async function buscarLinksService(codigo) {
   let r = await repo.query.buscarPorCodigo(codigo);

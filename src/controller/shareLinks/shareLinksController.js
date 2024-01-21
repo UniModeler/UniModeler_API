@@ -1,12 +1,11 @@
 import {Router} from 'express';
 import doIt from '../base/doIt.js';
-import { buscarLinksService, inserirLinkService } from '#domain/user_info/index';
-import { buscarPorID } from '#domain/user_info/index.js';
-import { countLinks } from '../../domain/user_info/index.js';
+import { buscarLinksService, inserirLinkService } from '#domain/shareLinks/index';
+import { buscarPorID, countLinks } from '#domain/shareLinks/index.js';
 
 const endpoints = Router();
 
-endpoints.get('/link/:code', (req, resp) => {
+endpoints.get('/:code', (req, resp) => {
     doIt(req, resp, async () => {
         let code = req.params.code;
 
@@ -20,7 +19,7 @@ endpoints.get('/link/:code', (req, resp) => {
     })
 })
 
-endpoints.post('/link', (req, resp) => {
+endpoints.post('/', (req, resp) => {
     doIt(req, resp, async () => {
 
         let infoLink = {
