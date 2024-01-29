@@ -1,10 +1,10 @@
-import { connect } from "../base/connection";
+import { connect } from "../base/connection.js";
 const [db] = connect('accounts');
 
-export async function loginUser(userInfo) {
+export async function queryLogin(userInfo) {
     let login = await db.findOne({
-        email: userInfo.email,
-        password: userInfo.password
+        "auth.email": userInfo.email,
+        "auth.password": userInfo.password
     })
 
     return login;

@@ -10,5 +10,12 @@ export async function insertSharedLink(linkInfo) {
         ts: new Date()
     })
 
+    console.log({
+        code: generateIDFromTime(),
+        jsonModel: linkInfo.jsString,
+        ipAdress: linkInfo.ipAdress,
+        ts: new Date()
+    });
+
     return r;
 }

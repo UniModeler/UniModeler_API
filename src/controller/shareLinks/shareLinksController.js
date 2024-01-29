@@ -14,14 +14,12 @@ endpoints.get('/:code', (req, resp) => {
         if(!links) {
             throw new global.PsicoWaysError('Não foi possível carregar o link compartilhado.')
         } 
-
         return links;
     })
 })
 
 endpoints.post('/', (req, resp) => {
     doIt(req, resp, async () => {
-
         let infoLink = {
             jsString: req.body.jsString,
             ipAdress: req.socket.remoteAddress

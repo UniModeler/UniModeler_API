@@ -3,9 +3,7 @@ import doIt from '../base/doIt.js';
 
 import * as modeler from '#domain/modeler/index';
 
-
 const endpoints = Router();
-
 
 endpoints.post('/structure', async (req, resp) => {
   doIt(req, resp, () => {
@@ -14,7 +12,6 @@ endpoints.post('/structure', async (req, resp) => {
     return strucObject;
   })
 });
-
 
 
 export default endpoints;

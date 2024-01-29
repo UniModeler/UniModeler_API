@@ -1,5 +1,5 @@
-import * as queryUserInfo from "./index.query";
-import * as modifyUserInfo from "./index.modify";
+import * as queryUserInfo from "./index.query.js";
+import * as modifyUserInfo from "./index.modify.js";
 
 export {
     queryUserInfo,
