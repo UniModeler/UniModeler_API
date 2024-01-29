@@ -13,3 +13,11 @@ export async function queryLogin(userInfo) {
 
     return login;
 }
+
+export async function queryEmail(email) {
+    let r = await db.findOne({
+        "auth.email": email
+    })
+
+    return r;
+}
