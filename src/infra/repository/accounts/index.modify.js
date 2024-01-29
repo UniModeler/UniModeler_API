@@ -27,13 +27,3 @@ export async function registerUser(userInfo) {
 
     return r;
 }
-
-export async function handleLogin(id) {
-    let r = await db.updateOne({
-        _id: id
-    }, {
-        $set: {lastAccess: new Date().toISOString()}
-    })
-
-    return r;
-}
