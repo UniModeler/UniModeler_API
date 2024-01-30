@@ -1,4 +1,5 @@
 import { connect } from '../base/connection.js';
+import randomColor from 'randomcolor';
 const [db] = connect('accounts');
 
 export async function registerUser(userInfo) {
@@ -22,6 +23,10 @@ export async function registerUser(userInfo) {
         },
         active: true,
         lastAccess: new Date().toISOString(),
+        profileColor: randomColor({
+            luminosity: 'bright',
+            hue: 'random'
+        }),
         ts: new Date().toISOString()
     });
 

@@ -18,9 +18,10 @@ endpoints.post('/register', async (req, resp) => {
     doIt(req, resp, async () => {
         let userInfo = req.body;
 
-        let account = await service.registerService(userInfo);
+        await service.registerService(userInfo);
+        let login = await service.loginService(userInfo);
 
-        return account;
+        return login;
     })
 })
 
