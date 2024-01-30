@@ -4,6 +4,9 @@ import { connect } from "../base/connection.js";
 const [collection] = connect('projects');
 
 export async function insertProject(projectInfo) {
+
+    let currentTime = new Date().toISOString();
+
     let r = await collection.insertOne({
         userId: projectInfo.userId,
         info: {
@@ -13,8 +16,9 @@ export async function insertProject(projectInfo) {
         modeling: {
             data: projectInfo.jsContent
         },
-        lastAccess: new Date().toISOString(),
-        ts: new Date().toISOString()
+        lastAccess: currentTime,
+        lastModified: currentTime,
+        ts: currentTime
     })
 
     return r;
@@ -29,7 +33,7 @@ export async function updateProject(id, projectInfo) {
             "info.cover": projectInfo.cover,
             "modeling.data": projectInfo.jsContent
         },
-        $currentDate: {lastAccess: true}
+        $currentDate: {lastModified: true}
     })
 }
 
