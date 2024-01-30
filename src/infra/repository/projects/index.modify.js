@@ -30,11 +30,12 @@ export async function updateProject(id, projectInfo) {
     }, {
         $set: {
             "info.name": projectInfo.name,
-            "info.cover": projectInfo.cover,
             "modeling.data": projectInfo.jsContent
         },
         $currentDate: {lastModified: true}
     })
+
+    return r;
 }
 
 export async function deleteProject(id) {

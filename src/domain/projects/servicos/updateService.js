@@ -5,3 +5,9 @@ export async function updateProjectService(id, projectInfo) {
 
     return r;
 }
+
+export async function addImageService(projectId, imagePath) {
+    let r = await repo.imageControl.addImage(projectId, imagePath);
+
+    return r;
+}
