@@ -15,6 +15,8 @@ import linksController from './controller/shareLinks/shareLinksController.js';
 // user accounts
 import accountsController from './controller/accounts/userController.js';
 
+import projectsController from './controller/projects/projectsController.js';
+
 
 export default function configRotas(servidor) {
   // storage
@@ -30,5 +32,7 @@ export default function configRotas(servidor) {
   servidor.use('/link', linksController);
 
   // user accounts
-  servidor.use('/accounts/', accountsController);
+  servidor.use('/accounts', accountsController);
+
+  servidor.use('/projects', projectsController);
 }

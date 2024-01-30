@@ -4,7 +4,7 @@ import * as service from '#domain/accounts/index';
 
 const endpoints = Router();
 
-endpoints.post('/login', async (req, resp) => {
+endpoints.post('/login', (req, resp) => {
     doIt(req, resp, async () => {
         let userInfo = req.body;
         
@@ -14,7 +14,7 @@ endpoints.post('/login', async (req, resp) => {
     })
 })
 
-endpoints.post('/register', async (req, resp) => {
+endpoints.post('/register', (req, resp) => {
     doIt(req, resp, async () => {
         let userInfo = req.body;
 
