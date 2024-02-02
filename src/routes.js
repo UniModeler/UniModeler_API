@@ -21,7 +21,7 @@ import projectsController from './controller/projects/projectsController.js';
 export default function configRotas(servidor) {
   // storage
   servidor.use('/storage/avatar', express.static('storage/paciente/avatar'));
-  servidor.use('/storage/projects_cover', express.static('storage/user/projects_cover'));
+  servidor.use('/storage/user/projects_cover', express.static('storage/user/projects_cover'));
 
   // modeler
   servidor.use('/modeler', modelerController);

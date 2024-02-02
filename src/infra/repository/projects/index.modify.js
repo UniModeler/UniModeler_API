@@ -11,7 +11,7 @@ export async function insertProject(projectInfo) {
         userId: projectInfo.userId,
         info: {
             name: projectInfo.name,
-            cover: projectInfo.coverImage
+            cover: projectInfo.cover
         },
         modeling: {
             data: projectInfo.jsContent
@@ -29,8 +29,8 @@ export async function updateProject(id, projectInfo) {
         _id: new ObjectId(id)
     }, {
         $set: {
-            "info.name": projectInfo.name,
-            "modeling.data": projectInfo.jsContent
+            "info.name": projectInfo.info.name,
+            "modeling.data": projectInfo.modeling.data
         },
         $currentDate: {lastModified: true}
     })
