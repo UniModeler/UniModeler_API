@@ -9,9 +9,6 @@ import modelerController from './controller/modeler/modelerController.js'
 // auth
 import * as auth from './controller/base/auth.js'
 
-// share links
-import linksController from './controller/shareLinks/shareLinksController.js';
-
 // user accounts
 import accountsController from './controller/accounts/userController.js';
 
@@ -28,9 +25,6 @@ export default function configRotas(servidor) {
 
   // teste
   servidor.use('/teste', testeController);
-
-  // shareLinks
-  servidor.use('/link', linksController);
 
   // user accounts
   servidor.use('/accounts', accountsController);

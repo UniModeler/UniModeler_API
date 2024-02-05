@@ -19,10 +19,21 @@ endpoints.get('/', (req, resp) => {
 endpoints.get('/:id', (req, resp) => {
   doIt(req, resp, async () => {
     let id = req.params.id;
+    let userId = req.query.userId;
 
-    let projects = await service.queryProjectService(id);
+    let projects = await service.queryProjectService(id, userId);
 
     return projects;
+  })
+})
+
+endpoints.get('/link/:code', (req, resp) => {
+  doIt(req, resp, async () => {
+    let code = req.params.code;
+
+    let project = await service.queryCodeService(code);
+
+    return project;
   })
 })
 
@@ -47,6 +58,29 @@ endpoints.put('/:id', (req, resp) => {
   })
 })
 
+endpoints.put('/:id/user', (req, resp) => {
+  doIt(req, resp, async () => {
+    let id = req.params.id;
+    let userId = req.body.userId;
+  
+    let r = await service.updateUserService(id, userId);
+
+    return r;
+  })
+})
+
+endpoints.put('/:id/collaborator', (req, resp) => {
+  doIt(req, resp, async () => {
+    let id = req.params.id;
+    let collaboratorId = req.body.collaboratorId;
+    let permission = req.body.permission;
+
+    let r = await service.addCollaboratorService(id, collaboratorId, permission);
+
+    return r;
+  })
+})
+
 endpoints.delete('/:id', (req, resp) => {
   doIt(req, resp, async () => {
     let projectID = req.params.id;
@@ -56,7 +90,6 @@ endpoints.delete('/:id', (req, resp) => {
     return r;
   })
 })
-
 
 // projects cover images control
 
@@ -72,3 +105,5 @@ endpoints.put('/:id/cover', upload.single('cover-image'), (req, resp) => {
 })
 
 export default endpoints;
+
+// 

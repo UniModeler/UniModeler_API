@@ -2,7 +2,7 @@ export function generateIDFromTime() {
 
     let id = '';
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
         id += randomLetter();
     }
 

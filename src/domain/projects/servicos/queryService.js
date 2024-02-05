@@ -6,8 +6,14 @@ export async function queryAllProjectsService(userID) {
     return projects;
 }
 
-export async function queryProjectService(id) {
-    let projects = await repo.queryProjects.queryProject(id);
+export async function queryProjectService(id, userId) {
+    let project = await repo.queryProjects.queryProject(id, userId);
 
-    return projects;
+    return project;
+}
+
+export async function queryCodeService(code) {
+    let project = await repo.queryProjects.getProjectByCode(code);
+
+    return project;
 }
