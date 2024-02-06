@@ -5,7 +5,6 @@ import cors from 'cors'
 
 import configRotas from './routes.js'
 
-
 const servidor = express();
 servidor.use(cors());
 servidor.use(express.json());

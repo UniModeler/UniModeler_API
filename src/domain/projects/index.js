@@ -1,5 +1,5 @@
 import { insertProjectService } from "./servicos/insertService.js";
-import { updateProjectService, updateUserService, addImageService } from "./servicos/updateService.js";
+import { updateProjectService, updateUserService, addImageService, addCollaboratorService } from "./servicos/updateService.js";
 import { queryProjectService, queryAllProjectsService, queryCodeService } from "./servicos/queryService.js";
 import { deleteProjectService } from "./servicos/deleteService.js";
 
@@ -8,6 +8,7 @@ export {
     updateProjectService,
     updateUserService,
     addImageService,
+    addCollaboratorService,
     queryProjectService,
     queryAllProjectsService,
     queryCodeService,

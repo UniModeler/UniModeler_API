@@ -1,7 +1,7 @@
 import * as repo from "#infra/repository/projects/index";
 
-export async function queryAllProjectsService(userID) {
-    let projects = await repo.queryProjects.queryAllProjects(userID);
+export async function queryAllProjectsService(userId) {
+    let projects = await repo.queryProjects.queryAllProjects(userId);
 
     return projects;
 }

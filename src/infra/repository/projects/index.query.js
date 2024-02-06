@@ -7,7 +7,7 @@ export async function queryAllProjects(userId) {
     let r = await collection.find({
         $or : [
             {userId: userId},
-            {'collaborators.userId': userId}
+            {'share.collaborators.userId': userId}
         ]   
     }).sort({lastModified: -1}).toArray();
 
