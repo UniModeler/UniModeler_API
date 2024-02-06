@@ -14,7 +14,7 @@ export async function queryAllProjects(userId) {
     return r;
 }
 
-export async function queryProject(id, userId) {
+export async function getProject(id, userId) {
     let r = await collection.findOneAndUpdate({
         _id: new ObjectId(id),
         $or: [

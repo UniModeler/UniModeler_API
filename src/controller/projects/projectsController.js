@@ -40,8 +40,9 @@ endpoints.get('/link/:code', (req, resp) => {
 endpoints.post('/', (req, resp) => {
   doIt(req, resp, async () => {
     let projectInfo = req.body;
+    let ipAddress = req.socket.remoteAddress
 
-    let r = await service.insertProjectService(projectInfo);
+    let r = await service.insertProjectService(projectInfo, ipAddress);
 
     return r;
   })

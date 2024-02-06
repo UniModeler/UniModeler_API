@@ -10,6 +10,7 @@ export default async function doIt(req, resp, action) {
   catch (err) {
     let statusCode = (err.code || 500);
     let trackCode = logError(err, req);
+  
 
     statusCode = typeof (err.code) === 'string' ? 500 : err.code;
     statusCode = statusCode < 600 ? statusCode : 500;

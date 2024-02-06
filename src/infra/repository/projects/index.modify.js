@@ -4,7 +4,7 @@ import { generateIDFromTime } from "../../../util/generateID.js";
 
 const [collection] = connect('projects');
 
-export async function insertProject(projectInfo) {
+export async function insertProject(projectInfo, ipAddress) {
 
     let currentTime = new Date().toISOString();
 
@@ -21,6 +21,7 @@ export async function insertProject(projectInfo) {
             code: generateIDFromTime(), // o código serve pra mandar uma cópia editável do projeto (/sharedLink/:code)
             collaborators: [] // se você for um dos colaboradores, poderá acessar o projeto diretamente (/projects/:id)
         },
+        ipAddress: ipAddress,
         lastAccess: currentTime,
         lastModified: currentTime,
         ts: currentTime
