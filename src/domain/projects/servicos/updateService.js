@@ -18,12 +18,14 @@ export async function updateUserService(id, userId) {
     return r;
 }
 
-export async function addCollaboratorService(id, collaboratorId, permission) {
-    let r = await repo.modifyProjects.updateCollaborator(id, collaboratorId, permission);
+export async function updateCollaboratorService(projectId, collaboratorId, permission) {
+    let r = await repo.shareControl.updateCollaborator(projectId, collaboratorId, permission);
 
-    if (r.modifiedCount === 0) {
-        r = await repo.modifyProjects.addCollaborator(id, collaboratorId, permission);
-    }
+    return r;
+}
+
+export async function updateLinkService(projectId, permission) {
+    let r = await repo.shareControl.updateLink(projectId, permission);
 
     return r;
 }

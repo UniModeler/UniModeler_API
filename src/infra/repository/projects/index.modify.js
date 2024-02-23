@@ -18,8 +18,11 @@ export async function insertProject(projectInfo, ipAddress) {
             data: projectInfo.jsContent
         },
         share: {
-            code: generateIDFromTime(), // o código serve pra mandar uma cópia editável do projeto (/sharedLink/:code)
-            collaborators: [] // se você for um dos colaboradores, poderá acessar o projeto diretamente (/projects/:id)
+            link: {
+                code: generateIDFromTime(), 
+                permission: 'read'
+            },            
+            collaborators: []
         },
         ipAddress: ipAddress,
         lastAccess: currentTime,
@@ -62,27 +65,6 @@ export async function updateProjectUser(id, userId) {
     }, {
         $set: {userId: userId}
     });
-
-    return r;
-}
-
-export async function updateCollaborator(id, collaboratorId, permission) {
-    let r = await collection.updateOne({
-        _id: new ObjectId(id),
-        "collaborators.userId": collaboratorId
-    }, {
-        $set: {"collaborators.$.permission": permission}
-    })
-
-    return r;
-}
-
-export async function addCollaborator(id, collaboratorId, permission) {
-    let r = await collection.updateOne({
-        _id: new ObjectId(id)
-    }, {
-        $push: {"share.collaborators": {userId: collaboratorId, permission: permission}}
-    })
 
     return r;
 }

@@ -1,16 +1,20 @@
-import { insertProjectService } from "./servicos/insertService.js";
-import { updateProjectService, updateUserService, addImageService, addCollaboratorService } from "./servicos/updateService.js";
-import { queryProjectService, queryAllProjectsService, queryCodeService } from "./servicos/queryService.js";
-import { deleteProjectService } from "./servicos/deleteService.js";
+import { insertProjectService, addCollaboratorService } from "./servicos/insertService.js";
+import { updateProjectService, updateUserService, updateCollaboratorService, updateLinkService, addImageService } from "./servicos/updateService.js";
+import { queryProjectService, queryUserProjectsService, queryCollaborationProjectsService, queryCodeService } from "./servicos/queryService.js";
+import { deleteProjectService, deleteCollaboratorService } from "./servicos/deleteService.js";
 
 export {
     insertProjectService,
     updateProjectService,
     updateUserService,
+    updateCollaboratorService,
+    updateLinkService,
     addImageService,
     addCollaboratorService,
     queryProjectService,
-    queryAllProjectsService,
+    queryUserProjectsService,
+    queryCollaborationProjectsService,
     queryCodeService,
-    deleteProjectService
+    deleteProjectService,
+    deleteCollaboratorService
 }

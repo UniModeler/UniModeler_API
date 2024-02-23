@@ -6,11 +6,13 @@ import multer from 'multer';
 const upload = multer({dest: 'storage/user/projects_cover'})
 const endpoints = Router();
 
-endpoints.get('/', (req, resp) => {
-  doIt(req, resp, async () => {
-    let userId = req.query.userId;
+import projectShareController from './projectsShareController.js';
 
-    let projects = await service.queryAllProjectsService(userId);
+endpoints.get('/user/:id', (req, resp) => {
+  doIt(req, resp, async () => {
+    let userId = req.params.id;
+
+    let projects = await service.queryUserProjectsService(userId);
 
     return projects;
   })
@@ -24,16 +26,6 @@ endpoints.get('/:id', (req, resp) => {
     let projects = await service.queryProjectService(id, userId);
 
     return projects;
-  })
-})
-
-endpoints.get('/link/:code', (req, resp) => {
-  doIt(req, resp, async () => {
-    let code = req.params.code;
-
-    let project = await service.queryCodeService(code);
-
-    return project;
   })
 })
 
@@ -70,18 +62,6 @@ endpoints.put('/:id/user', (req, resp) => {
   })
 })
 
-endpoints.put('/:id/collaborator', (req, resp) => {
-  doIt(req, resp, async () => {
-    let id = req.params.id;
-    let collaboratorId = req.body.collaboratorId;
-    let permission = req.body.permission;
-
-    let r = await service.addCollaboratorService(id, collaboratorId, permission);
-
-    return r;
-  })
-})
-
 endpoints.delete('/:id', (req, resp) => {
   doIt(req, resp, async () => {
     let projectID = req.params.id;
@@ -105,6 +85,6 @@ endpoints.put('/:id/cover', upload.single('cover-image'), (req, resp) => {
   })
 })
 
-export default endpoints;
+endpoints.use(projectShareController);
 
-// 
+export default endpoints;

@@ -1,0 +1,79 @@
+import { ObjectId } from "mongodb";
+import { connect } from "../base/connection.js";
+
+const [collection] = connect('projects');
+
+// collaborators
+
+export async function getCollaboratorPermission(projectId, userId) {
+    let r = await collection.findOne(
+        {
+            _id: new ObjectId(projectId),
+            $or: [
+                { userId: userId },
+                { "share.collaborators.userId": userId }
+            ]
+        });
+
+    if (!r)
+        return 'guest';
+
+    if (r.userId === userId)
+        return 'owner'
+    else {
+        for (let collaborator of r.share.collaborators)
+            if (collaborator.userId === userId)
+                return collaborator.permission;
+    }
+}
+
+export async function updateCollaborator(projectId, collaboratorId, permission) {
+    let r = await collection.updateOne({
+        _id: new ObjectId(projectId),
+        "collaborators.userId": collaboratorId
+    }, {
+        $set: { "share.collaborators.$.permission": permission }
+    })
+
+    return r;
+}
+
+export async function deleteCollaborator(projectId, collaboratorId) {
+    let r = await collection.updateOne({
+        _id: new ObjectId(projectId),
+    }, {
+        $pull: {"share.collaborators.userId": collaboratorId}
+    })
+
+    return r;
+}
+
+export async function addCollaborator(projectId, collaboratorId) {
+    let r = await collection.updateOne({
+        _id: new ObjectId(projectId)
+    }, {
+        $push: { "share.collaborators": { userId: collaboratorId, permission: 'read', accepted: false } }
+    })
+
+    return r;
+}
+
+// share links
+
+export async function getLinkPermission(projectId) {
+    let r = await collection.findOne({
+        _id: new ObjectId(projectId)
+    });
+
+    return r.share.link.permission;
+}
+
+export async function updateLink(projectId, permission) {
+    let r = await collection.updateOne({
+        _id: new ObjectId(projectId)
+    }, {
+        $set: { "share.link.permission": permission }
+    });
+
+    return r;
+}

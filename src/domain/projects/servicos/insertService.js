@@ -5,3 +5,9 @@ export async function insertProjectService(projectInfo, ipAddress) {
 
     return r;
 }
+
+export async function addCollaboratorService(id, collaboratorId) {
+    r = await repo.shareControl.addCollaborator(id, collaboratorId);
+
+    return r;
+}

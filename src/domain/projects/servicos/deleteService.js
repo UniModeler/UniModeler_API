@@ -5,3 +5,9 @@ export async function deleteProjectService(id) {
 
     return r;
 }
+
+export async function deleteCollaboratorService(projectId, collaboratorId) {
+    let r = await repo.shareControl.deleteCollaborator(projectId, collaboratorId);
+
+    return r;
+}
