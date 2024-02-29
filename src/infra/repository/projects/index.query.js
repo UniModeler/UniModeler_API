@@ -19,13 +19,9 @@ export async function queryCollaborationProjects(userId) {
     return r;
 }
 
-export async function getProject(id, userId) {
+export async function getProject(id) {
     let r = await collection.findOneAndUpdate({
-        _id: new ObjectId(id),
-        $or: [
-            { userId: userId },
-            { "share.collaborators.userId": userId }
-        ]
+        _id: new ObjectId(id)
     }, {
         $currentDate: { lastAccess: true }
     }, {

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as service from '#domain/projects/index'
+import * as service from '#domain/projects-share/index'
 import doIt from '../base/doIt.js';
 
 const endpoints = Router();
@@ -16,10 +16,10 @@ endpoints.get('/collaboration/:id', (req, resp) => {
     })
 })
 
-endpoints.post('/:id/collaborator', (req, resp) => {
+endpoints.post('/:id/collaborator/:collaboratorId', (req, resp) => {
     doIt(req, resp, async () => {
         let id = req.params.id;
-        let collaboratorId = req.query.collaboratorId;
+        let collaboratorId = req.params.collaboratorId;
 
         let r = await service.addCollaboratorService(id, collaboratorId);
 
@@ -27,11 +27,11 @@ endpoints.post('/:id/collaborator', (req, resp) => {
     })
 })
 
-endpoints.put('/:id/collaborator', (req, resp) => {
+endpoints.put('/:id/collaborator/:collaboratorId', (req, resp) => {
     doIt(req, resp, async () => {
         let id = req.params.id;
-        let collaboratorId = req.body.collaboratorId;
-        let permission = req.body.permission;
+        let collaboratorId = req.params.collaboratorId  ;
+        let permission = req.query.permission;
 
         let r = await service.updateCollaboratorService(id, collaboratorId, permission);
 

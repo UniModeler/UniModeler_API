@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { connect } from "../base/connection.js";
 const [db] = connect('accounts');
 
@@ -6,7 +7,7 @@ export async function queryLogin(userInfo) {
         "auth.email": userInfo.email,
         "auth.password": userInfo.password
     }, {
-        $currentDate: {lastAccess: true}
+        $currentDate: { lastAccess: true }
     }, {
         returnDocument: 'after'
     })
@@ -20,4 +21,12 @@ export async function queryEmail(email) {
     })
 
     return r;
+}
+
+export async function getUserById(userId) {
+    let r = await db.find({
+        _id: new ObjectId(userId)
+    }).project({_id: 1, info: 1, "auth.email": 1, profileColor: 1}).toArray();
+
+    return r[0];
 }

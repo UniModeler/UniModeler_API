@@ -17,15 +17,3 @@ export async function updateUserService(id, userId) {
 
     return r;
 }
-
-export async function updateCollaboratorService(projectId, collaboratorId, permission) {
-    let r = await repo.shareControl.updateCollaborator(projectId, collaboratorId, permission);
-
-    return r;
-}
-
-export async function updateLinkService(projectId, permission) {
-    let r = await repo.shareControl.updateLink(projectId, permission);
-
-    return r;
-}
