@@ -3,7 +3,7 @@ import { connect } from "../base/connection.js";
 
 const [collection] = connect('projects');
 
-export async function getCollaboratorPermission(projectId, userId) {
+export async function getProjectPermission(projectId, userId) {
     let r = await collection.findOne(
         {
             _id: new ObjectId(projectId),
