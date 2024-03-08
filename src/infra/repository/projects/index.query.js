@@ -3,18 +3,25 @@ import { connect } from "../base/connection.js";
 
 const [collection] = connect('projects');
 
+
 export async function queryUserProjects(userId) {
-    let r = await collection.find(
-        { userId: userId }
-    ).sort({ lastModified: -1 }).toArray();
+    let r = await collection.find({ 
+        userId: userId 
+    })
+    .sort({ 
+        lastModified: -1 
+    })
+    .toArray();
 
     return r;
 }
 
 export async function queryCollaborationProjects(userId) {
-    let r = await collection.find(
-        {'share.collaborators.userId': userId}
-    ).sort({lastModified: -1}).toArray();
+    let r = await collection.find({
+        'share.collaborators.userId': userId
+    })
+    .sort({ lastModified: -1 })
+    .toArray();
 
     return r;
 }
@@ -38,3 +45,6 @@ export async function getProjectByCode(code) {
 
     return r;
 }
+
+
+

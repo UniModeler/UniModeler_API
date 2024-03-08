@@ -15,10 +15,10 @@ export async function getProjectPermission(projectId, userId) {
 
     if (!r)
         return 'guest';
-
-    if (r.userId === userId)
+    else if (r.userId === userId)
         return 'owner'
     else {
+        // return r.share.collaborators.find(x => x.userId === userId)?.permission;
         for (let collaborator of r.share.collaborators)
             if (collaborator.userId === userId)
                 return collaborator.permission;
@@ -52,7 +52,13 @@ export async function addCollaborator(projectId, collaboratorId) {
     let r = await collection.updateOne({
         _id: new ObjectId(projectId)
     }, {
-        $push: { "share.collaborators": { userId: collaboratorId, permission: 'read', accepted: false } }
+        $push: { 
+            "share.collaborators": { 
+                userId: collaboratorId, 
+                permission: 'read',
+                accepted: false 
+            } 
+        }
     })
 
     return r;
