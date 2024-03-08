@@ -13,6 +13,14 @@ export function autenticacaoUsuario(req, resp, next) {
   return autenticacao(req, resp, next, 'user');
 }
 
+export function autenticacaoUsuarioOpcional(req, resp, next) {
+  try {
+    return autenticacao(req, resp, next, 'user');
+  } catch (err) {
+    next();    
+  }
+}
+
 
 
 

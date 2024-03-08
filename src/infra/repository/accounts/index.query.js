@@ -9,7 +9,12 @@ export async function queryLogin(userInfo) {
     }, {
         $currentDate: { lastAccess: true }
     }, {
-        returnDocument: 'after'
+      returnDocument: 'after',
+      projection: {
+        id: '$_id',
+        _id: 0,
+        // adicionar e jogar pra variavel projection em outro arquivo
+      }
     })
 
     return login;
@@ -26,7 +31,14 @@ export async function queryEmail(email) {
 export async function getUserById(userId) {
     let r = await db.find({
         _id: new ObjectId(userId)
-    }).project({_id: 1, info: 1, "auth.email": 1, profileColor: 1}).toArray();
+    }).project({id: '$_id', _id: 0, info: 1, "auth.email": 1, profileColor: 1}).toArray();
 
     return r[0];
+}
+
+
+
+
+const PROJECTION = {
+
 }

@@ -1,6 +1,7 @@
 import e, { Router } from "express";
 import doIt from "../base/doIt.js";
 import * as service from '#domain/accounts/index';
+import { gerarTokenUsuario } from "../base/auth.js";
 
 const endpoints = Router();
 
@@ -9,8 +10,9 @@ endpoints.post('/login', (req, resp) => {
         let userInfo = req.body;
         
         let login = await service.loginService(userInfo);
+        let token = gerarTokenUsuario(login);
 
-        return login;
+        return { token };
     })
 })
 

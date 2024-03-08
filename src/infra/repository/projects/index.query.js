@@ -6,7 +6,7 @@ const [collection] = connect('projects');
 
 export async function queryUserProjects(userId) {
     let r = await collection.find({ 
-        userId: userId 
+        'userId': userId 
     })
     .sort({ 
         lastModified: -1 

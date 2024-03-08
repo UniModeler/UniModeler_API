@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { autenticacaoUsuario, autenticacaoUsuarioOpcional } from "../base/auth.js";
 import * as service from '#domain/projects/index'
 import doIt from "../base/doIt.js";
 import multer from 'multer';
@@ -8,9 +9,9 @@ const endpoints = Router();
 
 import projectShareController from './projectsShareController.js';
 
-endpoints.get('/user/:id', (req, resp) => {
+endpoints.get('/user', autenticacaoUsuario, (req, resp) => {
   doIt(req, resp, async () => {
-    let userId = req.params.id;
+    let userId = req.user.id;
 
     let projects = await service.queryUserProjectsService(userId);
 
@@ -18,10 +19,10 @@ endpoints.get('/user/:id', (req, resp) => {
   })
 })
 
-endpoints.get('/:id', (req, resp) => {
+endpoints.get('/:id', autenticacaoUsuarioOpcional, (req, resp) => {
   doIt(req, resp, async () => {
     let id = req.params.id;
-    let userId = req.query.userId;
+    let userId = req.user?.id;
 
     let projects = await service.queryProjectService(id, userId);
 

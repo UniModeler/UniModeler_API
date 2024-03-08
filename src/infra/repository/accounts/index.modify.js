@@ -4,10 +4,10 @@ const [db] = connect('accounts');
 
 export async function registerUser(userInfo) {
     let r = await db.insertOne({
-        info: {
-            name: userInfo.name,
-            company: userInfo.company,
-            expertise: userInfo.expertise
+        'info': {
+            'name': userInfo.name,
+            'company': userInfo.company,
+            'expertise': userInfo.expertise
         },
         auth: {
             email: userInfo.email,
