@@ -1,12 +1,11 @@
 import * as repo from "#infra/repository/projects/index";
-import * as shareRepo from '#infra/repository/projects-share/index'; 
-import { validatePermission } from "../validacao/permissionValidation.js";
+import { validateAccessPermission } from "../validacao/permissionValidation.js";
 
 export async function queryUserProjectsService(userId) {
     let projects = await repo.queryProjects.queryUserProjects(userId);
     
     for(let project of projects) {
-        project.permission = await shareRepo.collaboratorsControl.getProjectPermission(project._id, userId);
+        project.permission = await validateAccessPermission(project.id, userId);
     }
 
     return projects;
@@ -14,9 +13,11 @@ export async function queryUserProjectsService(userId) {
 
 export async function queryProjectService(id, userId) {
     let project = await repo.queryProjects.getProject(id);
-    let permission = await shareRepo.collaboratorsControl.getProjectPermission(id, userId);
 
-    validatePermission(permission, project);
+    let permission = await validateAccessPermission(id, userId);
+
+    if(permission !== 'owner')
+        delete project.share.link.code;
 
     project.permission = permission;
 

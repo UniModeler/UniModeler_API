@@ -18,7 +18,7 @@ export default async function doIt(req, resp, action) {
     resp.status(statusCode)
       .send({
         trackCode: trackCode,
-        erro: err.name === 'PsicoWaysError'
+        erro: err.name === 'UniModelerError'
           ? err.message
           : 'Ocorreu um erro. Cód.' + trackCode
       })

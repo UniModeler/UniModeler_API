@@ -31,7 +31,7 @@ export function autenticacao(req, resp, next, role) {
     let token = req.headers['x-access-token'];
 
     if (token === undefined)
-      token = req.query['x-access-token']
+      token = req.query['x-access-token'];
 
     let signd = jwt.verify(token, KEY);
 

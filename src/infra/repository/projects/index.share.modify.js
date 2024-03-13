@@ -3,27 +3,8 @@ import { connect } from "../base/connection.js";
 
 const [collection] = connect('projects');
 
-export async function getProjectPermission(projectId, userId) {
-    let r = await collection.findOne(
-        {
-            _id: new ObjectId(projectId),
-            $or: [
-                { userId: userId },
-                { "share.collaborators.userId": userId }
-            ]
-        });
 
-    if (!r)
-        return 'guest';
-    else if (r.userId === userId)
-        return 'owner'
-    else {
-        // return r.share.collaborators.find(x => x.userId === userId)?.permission;
-        for (let collaborator of r.share.collaborators)
-            if (collaborator.userId === userId)
-                return collaborator.permission;
-    }
-}
+// share links
 
 export async function updateCollaborator(projectId, collaboratorId, permission) {
 
@@ -48,7 +29,6 @@ export async function deleteCollaborator(projectId, collaboratorId) {
 }
 
 export async function addCollaborator(projectId, collaboratorId) {
-
     let r = await collection.updateOne({
         _id: new ObjectId(projectId)
     }, {
@@ -60,6 +40,16 @@ export async function addCollaborator(projectId, collaboratorId) {
             } 
         }
     })
+
+    return r;
+}
+
+export async function updateLink(projectId, permission) {
+    let r = await collection.updateOne({
+        _id: new ObjectId(projectId)
+    }, {
+        $set: { "share.link.permission": permission }
+    });
 
     return r;
 }

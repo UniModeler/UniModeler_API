@@ -50,11 +50,11 @@ global.logDiscordError = (err, interaction) => {
 
 
 
-global.PsicoWaysError = class UniModelerError extends Error {
+global.UniModelerError = class UniModelerError extends Error {
   constructor(msg, code, options) {
     super(msg);
     this.code = code || 400;
-    this.name = 'PsicoWaysError'; 
+    this.name = 'UniModelerError'; 
     this.options = options;
   }
 }

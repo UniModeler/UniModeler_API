@@ -11,7 +11,6 @@ servidor.use(express.json());
 
 servidor.set('trust proxy', true);
 
-configRotas(servidor);
-
+servidor.use(configRotas);
 
 servidor.listen(process.env.PORT, () => console.log('API iniciada com sucesso na porta ' + process.env.PORT));

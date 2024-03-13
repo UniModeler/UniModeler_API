@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import { connect } from "../base/connection.js";
+import { EMAIL_QUERY_PROJECTION, LOGIN_PROJECTION, PUBLIC_USER_PROJECTION } from "./projections.js";
 const [db] = connect('accounts');
 
 export async function queryLogin(userInfo) {
@@ -10,11 +11,7 @@ export async function queryLogin(userInfo) {
         $currentDate: { lastAccess: true }
     }, {
       returnDocument: 'after',
-      projection: {
-        id: '$_id',
-        _id: 0,
-        // adicionar e jogar pra variavel projection em outro arquivo
-      }
+      projection: LOGIN_PROJECTION
     })
 
     return login;
@@ -23,22 +20,19 @@ export async function queryLogin(userInfo) {
 export async function queryEmail(email) {
     let r = await db.findOne({
         "auth.email": email
+    }, {
+        projection: EMAIL_QUERY_PROJECTION
     })
 
     return r;
 }
 
 export async function getUserById(userId) {
-    let r = await db.find({
+    let r = await db.findOne({
         _id: new ObjectId(userId)
-    }).project({id: '$_id', _id: 0, info: 1, "auth.email": 1, profileColor: 1}).toArray();
+    }, {
+        projection: PUBLIC_USER_PROJECTION
+    });
 
-    return r[0];
-}
-
-
-
-
-const PROJECTION = {
-
+    return r;
 }

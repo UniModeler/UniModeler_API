@@ -9,25 +9,25 @@ export async function registerUser(userInfo) {
             'company': userInfo.company,
             'expertise': userInfo.expertise
         },
-        auth: {
-            email: userInfo.email,
-            password: userInfo.password,
-            recover: {
-                code: '',
-                expires: ''
+        'auth': {
+            'email': userInfo.email,
+            'password': userInfo.password,
+            'recover': {
+                'code': '',
+                'expires': ''
             }
         },
-        subscription: {
-            type: 'free',
-            ts: new Date().toISOString()
+        'subscription': {
+            'type': 'free',
+            'ts': new Date().toISOString()
         },
-        active: true,
-        lastAccess: new Date().toISOString(),
-        profileColor: randomColor({
+        'active': true,
+        'lastAccess': new Date().toISOString(),
+        'profileColor': randomColor({
             luminosity: 'bright',
             hue: 'random'
         }),
-        ts: new Date().toISOString()
+        'ts': new Date().toISOString()
     });
 
     return r;

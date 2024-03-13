@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Router } from 'express'
 
 // teste
 import testeController from './controller/teste/testeController.js'
@@ -10,12 +10,11 @@ import modelerController from './controller/modeler/modelerController.js'
 import * as auth from './controller/base/auth.js'
 
 // user accounts
-import accountsController from './controller/accounts/userController.js';
+import accountsController from './controller/accounts/accountsController.js';
 
 import projectsController from './controller/projects/projectsController.js';
 
-
-export default function configRotas(servidor) {
+const servidor = Router();
   // storage
   servidor.use('/storage/avatar', express.static('storage/paciente/avatar'));
   servidor.use('/storage/user/projects_cover', express.static('storage/user/projects_cover'));
@@ -29,5 +28,7 @@ export default function configRotas(servidor) {
   // user accounts
   servidor.use('/accounts', accountsController);
 
+  // projects
   servidor.use('/projects', projectsController);
-}
+
+  export default servidor;
