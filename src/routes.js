@@ -16,7 +16,7 @@ import projectsController from './controller/projects/projectsController.js';
 
 const servidor = Router();
   // storage
-  servidor.use('/storage/avatar', express.static('storage/paciente/avatar'));
+servidor.use('/storage/avatar', express.static('storage/paciente/avatar'));
   servidor.use('/storage/user/projects_cover', express.static('storage/user/projects_cover'));
 
   // modeler

@@ -2,24 +2,24 @@ import * as repo from "#infra/repository/projects/index";
 import { validateAccessPermission } from "../validacao/permissionValidation.js";
 
 export async function queryUserProjectsService(userId) {
-    let projects = await repo.queryProjects.queryUserProjects(userId);
-    
-    for(let project of projects) {
-        project.permission = await validateAccessPermission(project.id, userId);
-    }
+  let projects = await repo.queryProjects.queryUserProjects(userId);
+  
+  for(let project of projects) {
+    project.permission = await validateAccessPermission(project.id, userId);
+  }
 
-    return projects;
+  return projects;
 }
 
 export async function queryProjectService(id, userId) {
-    let project = await repo.queryProjects.getProject(id);
+  let project = await repo.queryProjects.getProject(id);
 
-    let permission = await validateAccessPermission(id, userId);
+  let permission = await validateAccessPermission(id, userId);
 
-    if(permission !== 'owner')
-        delete project.share.link.code;
+  if(permission !== 'owner')
+    delete project.share.link.code;
 
-    project.permission = permission;
+  project.permission = permission;
 
-    return project;
+  return project;
 }

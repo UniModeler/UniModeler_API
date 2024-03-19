@@ -1,28 +1,28 @@
 export function generateIDFromTime() {
 
-    let id = '';
+  let id = '';
 
-    for (let i = 0; i < 6; i++) {
-        id += randomLetter();
-    }
+  for (let i = 0; i < 6; i++) {
+    id += randomLetter();
+  }
 
-    id += lastDigitsFromTimestamp();
+  id += lastDigitsFromTimestamp();
 
-    return id;
+  return id;
 }
 
 function randomLetter() {
-    let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+  let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-    let index = (Math.random() * 25).toFixed();
+  let index = (Math.random() * 25).toFixed();
 
-    return alphabet[index];
+  return alphabet[index];
 }
 
 function lastDigitsFromTimestamp() {
-    let date = new Date();
+  let date = new Date();
 
-    let miliseconds = String(date.getTime())
+  let miliseconds = String(date.getTime())
 
-    return miliseconds.slice(-3);
+  return miliseconds.slice(-3);
 }

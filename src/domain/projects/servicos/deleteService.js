@@ -3,11 +3,11 @@ import { validateDeletion } from "../validacao/modificationsValidation.js";
 import { validateOwnerPermission } from "../validacao/permissionValidation.js";
 
 export async function deleteProjectService(projectId, userId) {
-    await validateOwnerPermission(projectId, userId);
+  await validateOwnerPermission(projectId, userId);
 
-    let r = await repo.modifyProjects.deleteProject(projectId);
+  let r = await repo.modifyProjects.deleteProject(projectId);
 
-    validateDeletion(r);
+  validateDeletion(r);
 
-    return r;
+  return r;
 }

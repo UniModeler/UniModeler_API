@@ -3,11 +3,11 @@ import { validateUpdate } from "../../validacao/modificationsValidation.js";
 import { validateOwnerPermission } from "../../validacao/permissionValidation.js";
 
 export async function deleteCollaboratorService(projectId, userId, collaboratorId) {
-    await validateOwnerPermission(projectId, userId);
+  await validateOwnerPermission(projectId, userId);
 
-    let r = await repo.modifySharing.deleteCollaborator(projectId, collaboratorId);
+  let r = await repo.modifySharing.deleteCollaborator(projectId, collaboratorId);
 
-    validateUpdate(r);
+  validateUpdate(r);
 
-    return r;
+  return r;
 }

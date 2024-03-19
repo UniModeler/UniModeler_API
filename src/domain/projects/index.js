@@ -9,19 +9,19 @@ import { queryCollaborationProjectsService, queryCodeService } from "./servicos/
 import { deleteCollaboratorService } from "./servicos/share/deleteService.js";
 
 export {
-    insertProjectService,
-    duplicateProjectService,
-    updateProjectService,
-    renameProjectService,
-    updateUserService,
-    addImageService,
-    queryProjectService,
-    queryUserProjectsService,
-    deleteProjectService,
-    updateCollaboratorService,
-    updateLinkService,
-    addCollaboratorService,
-    queryCollaborationProjectsService,
-    queryCodeService,
-    deleteCollaboratorService
+  insertProjectService,
+  duplicateProjectService,
+  updateProjectService,
+  renameProjectService,
+  updateUserService,
+  addImageService,
+  queryProjectService,
+  queryUserProjectsService,
+  deleteProjectService,
+  updateCollaboratorService,
+  updateLinkService,
+  addCollaboratorService,
+  queryCollaborationProjectsService,
+  queryCodeService,
+  deleteCollaboratorService
 }

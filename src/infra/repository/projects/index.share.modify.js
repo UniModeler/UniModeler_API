@@ -8,48 +8,48 @@ const [collection] = connect('projects');
 
 export async function updateCollaborator(projectId, collaboratorId, permission) {
 
-    let r = await collection.updateOne({
-        _id: new ObjectId(projectId),
-        "share.collaborators.userId": collaboratorId
-    }, {
-        $set: { "share.collaborators.$.permission": permission }
-    })
+  let r = await collection.updateOne({
+    _id: new ObjectId(projectId),
+    "share.collaborators.userId": collaboratorId
+  }, {
+    $set: { "share.collaborators.$.permission": permission }
+  })
 
-    return r;
+  return r;
 }
 
 export async function deleteCollaborator(projectId, collaboratorId) {
-    let r = await collection.updateOne({
-        _id: new ObjectId(projectId),
-    }, {
-        $pull: {"share.collaborators.userId": collaboratorId}
-    })
+  let r = await collection.updateOne({
+    _id: new ObjectId(projectId),
+  }, {
+    $pull: {"share.collaborators.userId": collaboratorId}
+  })
 
-    return r;
+  return r;
 }
 
 export async function addCollaborator(projectId, collaboratorId) {
-    let r = await collection.updateOne({
-        _id: new ObjectId(projectId)
-    }, {
-        $push: { 
-            "share.collaborators": { 
-                userId: collaboratorId, 
-                permission: 'read',
-                accepted: false 
-            } 
-        }
-    })
+  let r = await collection.updateOne({
+    _id: new ObjectId(projectId)
+  }, {
+    $push: { 
+      "share.collaborators": { 
+        userId: collaboratorId, 
+        permission: 'read',
+        accepted: false 
+      } 
+    }
+  })
 
-    return r;
+  return r;
 }
 
 export async function updateLink(projectId, permission) {
-    let r = await collection.updateOne({
-        _id: new ObjectId(projectId)
-    }, {
-        $set: { "share.link.permission": permission }
-    });
+  let r = await collection.updateOne({
+    _id: new ObjectId(projectId)
+  }, {
+    $set: { "share.link.permission": permission }
+  });
 
-    return r;
+  return r;
 }

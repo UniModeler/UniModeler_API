@@ -3,41 +3,41 @@ import { validateUpdate } from "../validacao/modificationsValidation.js";
 import { validateEditingPermission, validateOwnerPermission, validateOwnerChange } from "../validacao/permissionValidation.js";
 
 export async function updateProjectService(projectId, userId, newModel) {
-    await validateEditingPermission(projectId, userId);
+  await validateEditingPermission(projectId, userId);
 
-    let r = await repo.modifyProjects.updateProject(projectId, newModel);
+  let r = await repo.modifyProjects.updateProject(projectId, newModel);
 
-    validateUpdate(r);
+  validateUpdate(r);
 
-    return r;
+  return r;
 }
 
 export async function renameProjectService(projectId, userId, newName) {
-    await validateOwnerPermission(projectId, userId);
+  await validateOwnerPermission(projectId, userId);
 
-    let r = await repo.modifyProjects.renameProject(projectId, newName);
+  let r = await repo.modifyProjects.renameProject(projectId, newName);
 
-    validateUpdate(r);
+  validateUpdate(r);
 
-    return r;
+  return r;
 }
 
 export async function addImageService(projectId, userId, imagePath) {
-    await validateEditingPermission(projectId, userId);
+  await validateEditingPermission(projectId, userId);
 
-    let r = await repo.modifyProjects.addImage(projectId, imagePath);
+  let r = await repo.modifyProjects.addImage(projectId, imagePath);
 
-    validateUpdate(r);
+  validateUpdate(r);
 
-    return r;
+  return r;
 }
 
 export async function updateUserService(id, userId) {
-    await validateOwnerChange(id, userId);
+  await validateOwnerChange(id, userId);
 
-    let r = await repo.modifyProjects.updateProjectUser(id, userId);
+  let r = await repo.modifyProjects.updateProjectUser(id, userId);
 
-    validateUpdate(r);
+  validateUpdate(r);
 
-    return r;
+  return r;
 }
